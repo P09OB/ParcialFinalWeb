@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julimarketing</title>
+</head>
+<body>
+
+    <div id="component">
+
+        <h2>Julimarketing</h2>
+        <h4>Pregunta actual</h4>
+        <div id="NewQuestion"></div>
+        <input id="Question" placeholder="Pregunta nueva"></input>
+        <button id="buttonQuestion">Ok</button>
+        <div id="story"></div>
+    </div>
+    
+</body>
+</html>
+
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyA5uRcWF4rPz6Ocf4jsAG4tNY90x0YYAqw",
+    authDomain: "parcial-37d34.firebaseapp.com",
+    databaseURL: "https://parcial-37d34.firebaseio.com",
+    projectId: "parcial-37d34",
+    storageBucket: "parcial-37d34.appspot.com",
+    messagingSenderId: "1044925991986",
+    appId: "1:1044925991986:web:1192b33673acb8df43002b"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script src="index.js"></script>
