@@ -14,6 +14,8 @@ add = () => {
 
     let text = document.createElement('div');
     let puntaje = document.createElement('div');
+    puntaje.className = 'puntaje';
+
 
     if (id2 === undefined) {
 
@@ -89,8 +91,11 @@ add = () => {
         
 
     );
-    component.appendChild(puntaje);
+
+
     component.appendChild(text);
+    component.appendChild(puntaje);
+
 
 }
 
@@ -100,6 +105,8 @@ database.ref('preguntas/historia').on('value', function (data) {
 
     let text = document.createElement('div');
     let puntaje = document.createElement('div');
+
+    puntaje.className = 'puntaje';
 
 
     data.forEach(
