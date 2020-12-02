@@ -2,52 +2,49 @@ const input = document.getElementById('Question');
 const button = document.getElementById('buttonQuestion');
 const component = document.getElementById('NewQuestion');
 const story = document.getElementById('story');
+const delate = document.createElement('button');
 const database = firebase.database();
+
+
 let id2;
 let ref;
-let pregunta;
 let Objquestion, objStory;
-let idhistoria;
+let view = false;
+
+if (id2 === undefined) {
+
+    database.ref('preguntas/historia').set(null);
+
+}
+
 
 
 add = () => {
 
     let text = document.createElement('div');
     let puntaje = document.createElement('div');
+
+    
     puntaje.className = 'puntaje';
 
 
     if (id2 === undefined) {
 
+        database.ref('preguntas/actuales').set(null);
+
+
         ref = database.ref('preguntas/actuales').push()
         id2 = ref.key;
-
-        let refNew = database.ref('preguntas/actual/').push()
-        id3 = refNew.key;
-        let obj = {
-            id: id2,
-        }
-        refNew.set(obj);
-
-        ref.set(id2);
-
-
-
 
     } else {
 
         let newref = database.ref('preguntas/historia/').push()
-        idhistoria = newref.key;
         newref.set(objStory);
-        //database.ref('preguntas/actuales/'+id2).set(null);
+
+        database.ref('preguntas/actuales/'+id2).set(null);
+
         ref = database.ref('preguntas/actuales').push()
         id2 = ref.key;
-
-        let refNew = database.ref('preguntas/actual/' + id3)
-        let obj = {
-            id: id2,
-        }
-        refNew.set(obj);
 
     }
 
@@ -69,21 +66,39 @@ add = () => {
 
 
     component.innerHTML = ('');
+    input.innerHTML = ('');
+
+   
 
     database.ref('preguntas/actuales/' + id2).on('value',
 
         (data) => {
 
+            if(data.hasChildren()){
             let get = data.val();
-            pregunta = get.pregunta;
+            let pregunta = get.pregunta;
             let promedio = get.puntaje;
             text.innerHTML = (pregunta);
             puntaje.innerHTML = (promedio);
+            delate.innerHTML = ('Eliminar');
+
 
             objStory = {
                 id:id2,
                 pregunta: pregunta,
                 puntaje: promedio,
+
+            }
+            
+        
+            
+            } else {
+
+                text.innerHTML = ('Realice una pregunta');
+                puntaje.innerHTML = ('');
+                delate.innerHTML = ('');
+
+            
             }
 
         }
@@ -91,17 +106,24 @@ add = () => {
         
 
     );
-
-
     component.appendChild(text);
+    component.appendChild(delate);
     component.appendChild(puntaje);
+
+    
+    
+
+    
+
+
+    
 
 
 }
 
-
-
 database.ref('preguntas/historia').on('value', function (data) {
+
+    
 
     let text = document.createElement('div');
     let puntaje = document.createElement('div');
@@ -136,4 +158,15 @@ database.ref('preguntas/historia').on('value', function (data) {
 });
 
 
+
+
+
+
 button.addEventListener('click', add);
+delate.addEventListener('click',() =>{
+
+    database.ref('preguntas/actuales/'+id2).set(null);
+
+
+
+})
